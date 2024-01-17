@@ -3,7 +3,6 @@
 
 select location, date, convert(int,total_cases) as total_case, new_cases, convert(int,total_deaths) as total_deaths, population  from SQLProject..CovidDeaths
 where total_cases IS NOT null
---and location like 'Vietnam'
 order by 1, 2 
 
 -- Looking at Total case and Total Deaths 
@@ -28,7 +27,6 @@ select location, population, max(cast(total_deaths as int)) as total_death_count
 from SQLProject..CovidDeaths
 where total_cases IS NOT null and continent is not null
 group by location, population
--- order by deaths_percentage desc
 
 -- Beark down by continent 
 select location, max(cast(total_deaths as int)) as total_death_count
@@ -75,7 +73,6 @@ join SQLProject..CovidVaccinations v
 	and d.date = v.date 
 where d.continent is not null
 and d.population is not null
---order by d.continent, d.location, d.date
 ) 
 select location, max((rolling_count/population)*100) as percentage 
 from Pop_vs_Vac
@@ -103,7 +100,6 @@ join SQLProject..CovidVaccinations v
 	and d.date = v.date 
 where d.continent is not null
 and d.population is not null
---order by d.continent, d.location, d.date
 
 select * 
 from #Percent_population_vaccinated
